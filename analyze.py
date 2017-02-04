@@ -2,13 +2,13 @@ import sqlite3
 import csv
 connection = sqlite3.connect(":memory:")
 cursor = connection.cursor()
-cursor.execute("CREAT TABLE t(name,age);")
+cursor.execute("CREATE TABLE t(name,age);")
 
 with open('data.csv','r') as fin:
   dr =csv.DictReader(fin)
-  to_db =[(i['name'],i['age']) for i  in dr]
+  to_db =[(i[ 'name'],i['age']) for i  in dr]
 
-cursor.excutemany("INSERT INTO t (name,age) VALUES (?,?);", to_db)
+cursor.executemany("INSERT INTO t (name,age) VALUES (?,?);", to_db)
 connection.commit()
 
 cursor=connection.cursor()
